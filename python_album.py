@@ -1,4 +1,4 @@
-# [ Python is used to interact with the Spotify API and extract music data in an automated way. 
+  [ Python is used to interact with the Spotify API and extract music data in an automated way. 
   The Spotify client is initialized in Python, after which album URLs are used to retrieve album IDs.
   Using these IDs, detailed album information is collected, and individual track details are extracted from each album.
   All track-level data is then loaded into a Pandas DataFrame for easy handling and analysis. 
@@ -100,6 +100,7 @@ for album_url in album_urls:
         plt.show()
 
 # (CSV already saved before showing the plot)
+
 
 
 
