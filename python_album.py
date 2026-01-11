@@ -1,9 +1,11 @@
-  [ Python is used to interact with the Spotify API and extract music data in an automated way. 
+# Spotify Data Visualization Using Matplotlib
+
+  Python is used to interact with the Spotify API and extract music data in an automated way. 
   The Spotify client is initialized in Python, after which album URLs are used to retrieve album IDs.
   Using these IDs, detailed album information is collected, and individual track details are extracted from each album.
   All track-level data is then loaded into a Pandas DataFrame for easy handling and analysis. 
   Finally, the popularity of tracks is visualized using Matplotlib, helping to compare and understand trends in track popularity across different albums. 
-  This Python-based approach enables efficient data collection, structured analysis, and clear visual representation of Spotify music data.]
+  This Python-based approach enables efficient data collection, structured analysis, and clear visual representation of Spotify music data.
 
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
@@ -98,6 +100,7 @@ for album_url in album_urls:
 
         plt.tight_layout()
         plt.show()
+
 
 
 
