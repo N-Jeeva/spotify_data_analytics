@@ -1,3 +1,12 @@
+# Spotify Data Extraction and MySQL Integration Script
+
+The Spotify API is accessed by securely initializing the client and processing album URLs to retrieve album IDs.
+Based on these IDs, album information is collected, and detailed track data is extracted for each album.
+All track-level details are structured into a DataFrame for better organization and analysis.
+The processed data is then loaded into a MySQL database using the MySQL Connector, ensuring structured and reliable storage.
+In parallel, the same dataset is saved as a CSV file to support data portability, backup, and further analysis.
+This approach enables efficient data extraction, organized storage, and flexible use of Spotify music data for analytical and reporting purposes.
+
 import re
 from mysql.connector import cursor
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -105,4 +114,5 @@ for album_url in album_urls:
         print(f"Error saving CSV for album {album_url}: {e}")
 # Closing the database connection
 cursor.close()
+
 connection.close()
