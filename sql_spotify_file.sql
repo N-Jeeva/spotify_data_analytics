@@ -1,3 +1,5 @@
+# Spotify Data Insights – MySQL Queries
+
 In this Spotify project, MySQL is used to clean, organize, and analyze the music dataset in a structured way.
 The raw data is first standardized and broken down into separate columns to make it easier to understand and work with.
 This step helps improve data quality and ensures accurate analysis.
