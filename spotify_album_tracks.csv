@@ -1,4 +1,6 @@
-﻿Track Name,Album Name,Artists,Popularity,Duration (min),Release Date
+# This is the metadata of the tracks of albums released in 2025 - Loaded into a csv file from JSON tracked using spotify api 
+
+Track Name,Album Name,Artists,Popularity,Duration (min),Release Date
 Sawadeeka,Vidaamuyarchi (Original Motion Picture Soundtrack),"Anirudh Ravichander, Anthony Daasan, Arivu",50,3.4068833333333335,2025-02-17
 Thaniye,Vidaamuyarchi (Original Motion Picture Soundtrack),Anirudh Ravichander,37,3.3217333333333334,2025-02-17
 Pathikichu,Vidaamuyarchi (Original Motion Picture Soundtrack),"Anirudh Ravichander, Yogi Sekar, Amogh Balaji",52,3.48025,2025-02-17
@@ -2115,3 +2117,4 @@ Poyivaa Nanba (Tamil),Kuberaa (Tamil),"Devi Sri Prasad, Dhanush, Viveka",46,4.05
 Kuppan,Gangers,"C. Sathya, Meenakshi Elayaraja, Gunasundari, Pa. Vijay",9,4.194166666666667,2025-04-24
 Kissa 47,Devil's Double Next Level (Original Motion Picture Soundtrack),"ofRO, Kelithee",41,2.85,2025-05-15
 Muzhumathiyae,Oho Enthan Baby,"Jen Martin, Sid Sriram, Ashique AR",23,3.7542833333333334,2025-06-28
+
