@@ -99,7 +99,7 @@ for album_url in album_urls:
         plt.tight_layout()
         plt.show()
 
-# (CSV already saved before showing the plot)
+
 
 
 
