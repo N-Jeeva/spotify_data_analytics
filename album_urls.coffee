@@ -1,3 +1,5 @@
+# Spotify urls of the tamil albums released in 2025
+
 https://open.spotify.com/album/1nbDSTLKDO9SvjQ2cOQglE - Vidaa
 https://open.spotify.com/album/7nnIfhnQEZouWC7Stu3AY9 - drag
 https://open.spotify.com/album/2lA2i7E7aBo9n9CKfD3DX7 - mask
@@ -33,3 +35,4 @@ https://open.spotify.com/album/57JMpf9DmVsdJ4vKTI3a9R - kube
 https://open.spotify.com/album/2VNzf2IFFgP1vV9tXqkF9F - gang
 https://open.spotify.com/album/0Kx3H5slY9A8kvaD5jcKfY - dd2
 https://open.spotify.com/album/4yQYMnCQy7NueoCR4p76t1 - oho
+
