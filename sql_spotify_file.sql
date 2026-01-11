@@ -1,7 +1,14 @@
+In this Spotify project, MySQL is used to clean, organize, and analyze the music dataset in a structured way.
+The raw data is first standardized and broken down into separate columns to make it easier to understand and work with.
+This step helps improve data quality and ensures accurate analysis.
+Once the data is cleaned, MySQL queries are used to identify key insights such as the top albums and top tracks of the year, the most popular music composers, and overall release trends.
+The database is also used to analyze how many tracks and albums were released in the first and second half of the year for each composer.
+By using MySQL for both data preparation and querying, the project delivers clear insights into music popularity and release patterns within Spotify.
+
+
 create database spotify_db;
 use spotify_db;
 
-select * from spotify_tracks;
 drop table if exists spotify_tracks;
 create table spotify_tracks(
 	track_id int auto_increment primary key,
@@ -14,34 +21,35 @@ create table spotify_tracks(
     unique(track_name)
     );
 
--- The MySQL Query upto this should be executed before the python code execution
+-- The MySQL Queries upto this should be executed before the python code execution
 
 # Data cleaning and standardization
 
 	set sql_safe_updates = 0;
 
     ## Deleting the duplicate records from the dataset
-    delete t from spotify_tracks t
-    join
-    (
-	select album_name, track_name from spotify_tracks
-    group by album_name, track_name
-    having count(*) > 1
-    ) as d
-    on t.album_name = d.album_name and
-    t.track_name = d.track_name;
+	    delete t from spotify_tracks t
+	    join
+	    (
+		select album_name, track_name from spotify_tracks
+	    group by album_name, track_name
+	    having count(*) > 1
+	    ) as d
+	    on t.album_name = d.album_name and
+	    t.track_name = d.track_name;
 
-# 
-update spotify_tracks
-set album_name = trim(substring_index(substring_index(album_name, '[', 1), '(', 1));
+	## Clearing the unwanted spaces and symbols in the columns to avoid confusion and to get a clear view.
+		update spotify_tracks
+		set album_name = trim(substring_index(substring_index(album_name, '[', 1), '(', 1));
 
-# Separating the artists column into music composer and singers using the comma delimiter
-	alter table spotify_tracks add music_composer varchar(255);
-	alter table spotify_tracks add singers varchar(255);
-	update spotify_tracks
-	set music_composer = trim(substring_index(artists, ',', 1));
-	update spotify_tracks
-	set singers = trim(substring(artists , locate(',',artists) +1));
+	## Separating the artists column into music composer and singers using the comma delimiter
+	
+		alter table spotify_tracks add music_composer varchar(255);
+		alter table spotify_tracks add singers varchar(255);
+		update spotify_tracks
+		set music_composer = trim(substring_index(artists, ',', 1));
+		update spotify_tracks
+		set singers = trim(substring(artists , locate(',',artists) +1));
 
 	set sql_safe_updates = 1;
 
@@ -104,63 +112,63 @@ set album_name = trim(substring_index(substring_index(album_name, '[', 1), '(', 
 
 ## 8. Popularity Distribution
 
-	select
-		case
-			when popularity >= 60 then 'Very Popular'
-			when popularity >= 40 then 'Popular'
-			else 'Less Popular'
-		end as popularity_range,
-		count(*) as track_count
-	from spotify_tracks
-	group by popularity_range
-	order by popularity_range desc;
+		select
+			case
+				when popularity >= 60 then 'Very Popular'
+				when popularity >= 40 then 'Popular'
+				else 'Less Popular'
+			end as popularity_range,
+			count(*) as track_count
+		from spotify_tracks
+		group by popularity_range
+		order by popularity_range desc;
 
 ## 9. Top track of albums by popularity
 
-	select album_name, track_name, music_composer, singers, popularity, duration_in_min from
-	(select
-		track_name,
-		album_name,
-		music_composer,
-        singers,
-		popularity,
-		duration_in_min,
-		dense_rank() over (partition by album_name order by popularity desc) as track_rank
-		from spotify_tracks)
-		as ranked_tracks
-	where track_rank = 1
-	order by popularity desc, album_name;
+		select album_name, track_name, music_composer, singers, popularity, duration_in_min from
+		(select
+			track_name,
+			album_name,
+			music_composer,
+	        singers,
+			popularity,
+			duration_in_min,
+			dense_rank() over (partition by album_name order by popularity desc) as track_rank
+			from spotify_tracks)
+			as ranked_tracks
+		where track_rank = 1
+		order by popularity desc, album_name;
     
 ## 10. Composers with the most number of albums and tracks in 2025
 
-	select music_composer, count(distinct album_name) as album_count, count(track_name) as track_count from spotify_tracks
-    group by music_composer
-    order by album_count desc, track_count desc
-    limit 10;
+		select music_composer, count(distinct album_name) as album_count, count(track_name) as track_count from spotify_tracks
+	    group by music_composer
+	    order by album_count desc, track_count desc
+	    limit 10;
     
 ## 11. Composers with the highest popularity in 2025
 
-	select music_composer, avg(popularity) as avg_popularity from spotify_tracks
-	where album_name in (
-	select album_name from spotify_tracks
-	group by album_name
-	having count(distinct music_composer) = 1
-	)
-	group by music_composer
-	order by avg_popularity desc limit 5;
+		select music_composer, avg(popularity) as avg_popularity from spotify_tracks
+		where album_name in (
+		select album_name from spotify_tracks
+		group by album_name
+		having count(distinct music_composer) = 1
+		)
+		group by music_composer
+		order by avg_popularity desc limit 5;
     
 ## 12. Early and Late year comparison
 	
-    select case
-		when month(release_date) <=6 then 'January - June'
-        else 'July - December'
-        end as year_split,
-	count(distinct album_name) as album_count,
-    count(track_name) as track_count,
-    avg(popularity) as avg_popularity
-    from spotify_tracks
-    group by year_split
-    order by avg_popularity;
+	    select case
+			when month(release_date) <=6 then 'January - June'
+	        else 'July - December'
+	        end as year_split,
+		count(distinct album_name) as album_count,
+	    count(track_name) as track_count,
+	    avg(popularity) as avg_popularity
+	    from spotify_tracks
+	    group by year_split
+	    order by avg_popularity;
     
 
     
